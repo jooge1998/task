@@ -26,14 +26,14 @@ class task extends DB{
         try {
 
             $query = $this->connect()->prepare('DELETE FROM `task` WHERE ID = ?');
-            $query->execute(array($_REQUEST['delete']));
+            $query->execute(array($_REQUEST['id']));
 
         } catch (PDOException $e){
             echo $e->getMessage();
             
         }
 
-        header('Location: index.php');
+     header('Location: index.php'); 
 
     }
 
@@ -51,7 +51,8 @@ class task extends DB{
                     echo " <th scope='row'> " . $r['ID'] . "</th>";
                     echo "<td> " . $r['TITLE'] . " </td>";
                     echo "<td> " . $r["DESCRIPTION"] . "</td>";
-                    echo "<td> <input class='btn btn-danger' name='delete' type='submit' value=" . $r["ID"] . "> </td>
+                    echo "<td> <input class='btn btn-danger' name='delete' type='submit' value='ELIMINAR'>
+                    <input type='hidden' name='id' value=" . $r['ID'] . "> </td>
                     </tr>";
                 }               
                            
