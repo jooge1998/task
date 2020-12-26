@@ -1,3 +1,9 @@
+<?php
+
+include_once 'includes/task.php';
+$task = new task();
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -23,28 +29,27 @@
                     <h1 class="text-center ">Task</h1>
                     <div class="mb-3 align-self-center">
                         <label for="exampleFormControlInput1" class="form-label">Title task</label>
-                        <input type="text" class="form-control" name="title" placeholder="title dask">
+                        <input type="text" class="form-control" value="<?php echo isset($_REQUEST['edit']) ?  $task->muestra("TITLE") : NULL; ?>" name="title" placeholder="title dask">
                     </div>
                     <div class="mb-3 align-self-center">
                         <label for="exampleFormControlTextarea1" class="form-label">Description Task</label>
-                        <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="5"></textarea>
+                        <textarea class="form-control" name="description"  id="exampleFormControlTextarea1" rows="5"><?php echo isset($_REQUEST['edit']) ?  $task->muestra("DESCRIPTION") : NULL; ?></textarea>
                     </div>
 
                     <input class="btn btn-primary " name="btn" type="submit" value="Save">
-
                 </form>
             </div>
 
             <?php
 
-            include_once 'includes/task.php';
-
-            $task = new task();
-
-            if (isset($_POST['btn'])) {
+if (isset($_POST['btn'] ) && isset($_REQUEST['edit'])) {
+  
+    $task->edit();
+    header('Location: index.php');   
+} else if (isset($_POST['btn'] ) ) {
 
                 $task->insert();
-            }
+            } 
 
             ?>
 
@@ -58,22 +63,17 @@
                                 <th scope="col">TITLE</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">OPCION</th>
-                                
+
                             </tr>
                         </thead>
                         <tbody>
                             <?php
 
-                            include_once 'includes/task.php';
-
-                            $task = new task();
-
                             $task->view();
 
                             if (isset($_REQUEST['delete'])) {
-                                
-                               $task->delete();
-                                                                            
+
+                                $task->delete();
                             }
 
                             ?>
@@ -87,14 +87,6 @@
         </div>
 
     </div>
-
-
-
-
-
-
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
