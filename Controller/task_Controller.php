@@ -12,10 +12,7 @@ if ( isset($_REQUEST['edit'])) {
   $title = $task->muestra("TITLE");
   $description = $task->muestra("DESCRIPTION");
 
-}
-
-
-if(isset($_REQUEST['delete'])) {
+}else if(isset($_REQUEST['delete'])) {
 
     $task->delete();
 }
