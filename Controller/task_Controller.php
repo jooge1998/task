@@ -8,16 +8,6 @@ $task = new task();
 $guar = $task->view();
 
 
-switch ($variable) {
-    case 'btn':
-        # code...
-        break;
-    
-    default:
-        # code...
-        break;
-}
-
 if ( isset($_REQUEST['edit'])) {
   $title = $task->muestra("TITLE");
   $description = $task->muestra("DESCRIPTION");
