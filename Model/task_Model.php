@@ -80,10 +80,16 @@ class task extends DB{
 
             $query = $this->connect()->prepare('SELECT * FROM task');
             $query->execute();
+            $array =[];
+            $i = 0;
 
-            $result = $query->fetchAll(pdo::FETCH_ASSOC);
+            while ( $result = $query->fetch(pdo::FETCH_ASSOC)) {
+                $array[$i] = $result;
+                $i++;
+            }
+               
             
-                foreach ($result as $r ) {
+               /*  foreach ($result as $r ) {
                     echo " <tr>";
                     echo " <th scope='row'> " . $r['ID'] . "</th>";
                     echo "<td> " . $r['TITLE'] . " </td>";
@@ -92,11 +98,13 @@ class task extends DB{
                      <a class='btn btn-success ' href='?edit&id=". $r['ID'] . "'>EDITAR</a> <td>
                     </tr>";
                     
-                }                                      
+                }  */                                     
 
         }catch(PDOException $e){
             echo $e->getMessage();
         }
+
+        return $array;
     }
 
 
